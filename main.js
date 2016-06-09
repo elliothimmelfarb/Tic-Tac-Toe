@@ -41,19 +41,19 @@ function cellClick(event) {
 }
 
 function choose(target) {
-   //console.log(target.id)
+
    if (xTurn) {
-      //console.log("xturn");
+
       $(target).unbind().find('.xo').text("X");
       xSpots.push(target.id);
-      //console.log(xSpots);
+
    } else {
-      //console.log("oturn");
+
       $(target).unbind().find('.xo').text("O");
       oSpots.push(target.id);
-      //console.log(oSpots);
+
    }
-   if(winTest()) {
+   if (winTest()) {
       return;
    }
    winTest();
@@ -64,8 +64,8 @@ function choose(target) {
 }
 
 function winTest() {
-   //console.log("wintTest");
-   //debugger;
+
+
    var won = false;
 
    if (xTurn) {
@@ -75,10 +75,8 @@ function winTest() {
             if (xSpots.includes(winCombos[i][j])) {
                count++;
             }
-            //console.log(winCombos[i][j], xSpots, count)
          }
          if (count === 3) {
-            //console.log("won");
             gameOver = true;
             xTurn = false;
             return gameIsOver("X's");
@@ -91,20 +89,14 @@ function winTest() {
             if (oSpots.includes(winCombos[i][j])) {
                count++;
             }
-            //console.log(winCombos[i][j], oSpots, count)
          }
          if (count === 3) {
-            //console.log("won");
             gameOver = true;
             xTurn = true;
             return gameIsOver("O's");
          }
       }
    }
-
-
-   // if(gameOver) return gameIsOver();
-   // else return newTurn();
 }
 
 function newTurn() {
@@ -123,12 +115,34 @@ function newTurn() {
 }
 
 function gameIsOver(who) {
-   //debugger;
+
    $('.results').text("Game Over! " + who + " win!").removeClass('big');
    $('.cell').unbind();
 }
 
 function buildBoard(size) {
+
+   let $rows = [];
+   for (let i = 0; i < size; i++) {
+      //build rows
+      let $row = $('<div>').addClass('row');
+      let $squares = []
+      for (let j = 0; j < size; j++) {
+         let $square = $('<div>').addClass('square');
+         $squares.push($square);
+      }
+
+      $row.append($squares);
+
+      //fill row with squares
+
+      $rows.push($row);
+
+   }
+
+   $('.board').append($rows);
+
+   /*
    var $board = $('.board');
    var id = 0;
    for (var i = 0; i < size; i++) {
@@ -140,5 +154,5 @@ function buildBoard(size) {
          id++
       }
       $board.append($row);
-   }
+   } */
 }

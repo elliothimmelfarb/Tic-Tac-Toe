@@ -5,7 +5,8 @@
    <meta charset="UTF-8">
    <title>Tic Tac Toe</title>
    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-   <script src="main.js"></script>
+   <!-- <script src="main.js"></script> -->
+   <script src="tests.js"></script>
    <link rel="stylesheet" href="http://s.mlcdn.co/animate.css">
    <link rel="stylesheet" href="styles.css">
 </head>
@@ -14,6 +15,12 @@
    <div class="app">
       <div class="game animeted fadeIn">
          <h1 class="animated fadeIn">Tic Tac Toe</h1>
+         <select class="selectSize">
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+         </select>
+         <button class="makeBoard">Make Board</button>
          <button class="new-game animated fadeIn">New Game!</button>
          <div class="game-div">
             <div class="info turn-teller animated zoomIn" id="left">
