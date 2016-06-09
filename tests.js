@@ -1,3 +1,5 @@
+var redsTurn = true;
+
 $(document).ready(init);
 
 function init() {
@@ -11,8 +13,15 @@ function makeBoard() {
    buildBoard(size);
 }
 
-function clickSquare(e) {
-   console.log('clicked!', e.target)
+function clickSquare() {
+   if (redsTurn) {   
+      $(this).addClass('red');
+   } else {
+      $(this).addClass('blue');
+   }
+   redsTurn = !redsTurn;
+
+   checkWin();
 }
 
 function buildBoard(size) {
@@ -36,4 +45,53 @@ function buildBoard(size) {
    }
 
    $('.board').empty().append($rows);
+}
+
+function checkWin() {
+
+   var size = $('.row').length;
+
+   $('.row').each(function(index, el) {
+      var notRed = $('.row').eq(index).find('.square').not('.red').length;
+      var notBlue = $('.row').eq(index).find('.square').not('.red').length;
+
+      if (notRed === 0 || notBlue === 0) {
+         endGame();
+      }
+   });
+
+   for (var i = 1; i <= size; i++) {
+      var notBlue = $(`.square:nth-child(${i})`).not('.blue').length;
+      var notBlue = $(`.square:nth-child(${i})`).not('.blue').length;
+
+      if (notRed === 0 || notBlue === 0) {
+         endGame();
+      }
+   }
+ 
+   for (var i = 1; i <= size; i++) {
+      var notBlue = $(`.square:nth-child(${i})`).not('.blue').length;
+      var notRed = $(`.square:nth-child(${i})`).not('.red').length;
+      
+      if (notRed === 0 || notBlue === 0) {
+         endGame();
+      }
+   }  
+
+   /*
+   var squareCount = $('.row').eq(row).find('.square').length;
+   
+   var redCount = $(`.row:eq(${row}) .red`).length
+   var blueCount = $(`.row:eq(${row}) .blue`).length
+   
+   console.log('squareCount:', squareCount);
+   console.log('reCount:', redCount);
+   console.log('blueCount:', blueCount);
+   console.log('notRed:', notRed);
+   console.log('notBlue:', notBlue)
+   */
+}
+
+function endGame() {
+   console.log('game over')
 }
