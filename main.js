@@ -1,6 +1,7 @@
 $(document).ready(init);
 
 var boardSize = 3;
+var turnCount = 0;
 var gameOver = false;
 var xTurn = true;
 var xSpots = [];
@@ -24,6 +25,7 @@ function init() {
 
 function newGame() {
    gameOver = false;
+   turnCount = 0;
    xSpots = [];
    oSpots = [];
    $('.cell, .results').empty();
@@ -78,6 +80,7 @@ function winTest() {
          if (count === 3) {
             //console.log("won");
             gameOver = true;
+            xTurn = false;
             return gameIsOver("X's");
          }
       }
@@ -93,6 +96,7 @@ function winTest() {
          if (count === 3) {
             //console.log("won");
             gameOver = true;
+            xTurn = true;
             return gameIsOver("O's");
          }
       }
@@ -105,12 +109,16 @@ function winTest() {
 
 function newTurn() {
    console.log("turn");
+   turnCount++;
    if (xTurn) {
-      $('.r-left').text("X");
-      $('.r-right').empty();
+      $('.r-left').addClass('animated fadeIn').text("X");
+      $('.r-right').removeClass('animated fadeIn').empty();
    } else {
-      $('.r-right').text("O")
+      $('.r-right').text("O");
       $('.r-left').empty();
+   }
+   if (turnCount > 9) {
+      $('.results').text("Cat's Game!").removeClass('big');
    }
 }
 
@@ -126,7 +134,7 @@ function buildBoard(size) {
    for (var i = 0; i < size; i++) {
       var $row = $('<tr>');
       for (var j = 0; j < size; j++) {
-         var $div = $('<div>').addClass('cell').attr('id', id).append($('<p>').addClass("xo"));
+         var $div = $('<div>').addClass('cell animated zoomIn').attr('id', id).append($('<p>').addClass("xo"));
          var $cell = $('<td>').append($div);
          $row.append($cell);
          id++
