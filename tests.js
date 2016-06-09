@@ -62,21 +62,25 @@ function checkWin() {
 
    for (var i = 1; i <= size; i++) {
       var notBlue = $(`.square:nth-child(${i})`).not('.blue').length;
-      var notBlue = $(`.square:nth-child(${i})`).not('.blue').length;
+      var notRed = $(`.square:nth-child(${i})`).not('.red').length;
 
       if (notRed === 0 || notBlue === 0) {
          endGame();
       }
    }
- 
-   for (var i = 1; i <= size; i++) {
-      var notBlue = $(`.square:nth-child(${i})`).not('.blue').length;
-      var notRed = $(`.square:nth-child(${i})`).not('.red').length;
-      
-      if (notRed === 0 || notBlue === 0) {
-         endGame();
+
+   var $diagonals = [];
+
+   $('.square').each(function(index, el) {
+      var col = $(el).index();
+      var row = $(el).parent().index();
+
+      if(col === row) {
+         $diagonals.push($(el));
       }
-   }  
+   });  
+
+   debugger;
 
    /*
    var squareCount = $('.row').eq(row).find('.square').length;
@@ -87,8 +91,6 @@ function checkWin() {
    console.log('squareCount:', squareCount);
    console.log('reCount:', redCount);
    console.log('blueCount:', blueCount);
-   console.log('notRed:', notRed);
-   console.log('notBlue:', notBlue)
    */
 }
 
